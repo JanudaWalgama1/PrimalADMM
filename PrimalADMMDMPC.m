@@ -42,7 +42,6 @@ for idx = 1:length(eta_values)
     avg_subopt(idx) = mean(subopt_trials);
 end
 
-%% Plot Results
 figure;
 subplot(2,1,1);
 plot(eta_values, avg_comm, '-o'); grid on;
@@ -54,14 +53,13 @@ plot(eta_values, avg_subopt, '-o'); grid on;
 title('Average Suboptimality vs. Eta');
 xlabel('\eta'); ylabel('Avg Suboptimality (%)');
 
-%% Print Results Like the Paper
 fprintf('\nResults Summary:\n');
 fprintf('Eta\tAvg_Comm\tAvg_Subopt(%%)\n');
 for idx = 1:length(eta_values)
     fprintf('%d\t%.1f\t\t%.2f\n', eta_values(idx), avg_comm(idx), avg_subopt(idx));
 end
 
-%% ------------ Helper Functions ------------
+%% ------------ Functions ------------
 
 function [A, B, Q, R, neighbors] = generate_dense_system(M, n, m, eta)
     A = zeros(n*M); B = zeros(n*M, m*M); neighbors = cell(M, 1);
