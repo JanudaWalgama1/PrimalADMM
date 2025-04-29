@@ -1,4 +1,4 @@
-%% P2P Energy Trading with ADMM - Redesigned Optimization Framework (Robust)
+%% Energy Trading with ADMM
 clear; clc;
 
 %% Parameters
@@ -18,13 +18,13 @@ max_iters = 50;
 rho = 1;
 tol = 1e-3;
 
-%% Generate Demand and Renewable Profiles
+%% Demand and Renewable Profiles
 demand = rand(num_agents, N) * 2 + 2;   % Moderate demand 2-4 kW
 renewable = zeros(num_agents, N);
 renewable(1:2, :) = rand(2, N) * 5 + 3;
 renewable(3:5, :) = rand(3, N) * 1;
 
-%% Initialize Agents
+%% Initialize 
 for i = 1:num_agents
     agents(i).x0 = rand * battery_capacity;
     agents(i).P_grid = zeros(N,1);
@@ -34,7 +34,7 @@ for i = 1:num_agents
     agents(i).neighbor = mod(i, num_agents) + 1;
 end
 
-%% ADMM Loop
+%% ADMM 
 for iter = 1:max_iters
     for i = 1:num_agents
         neigh = agents(i).neighbor;
@@ -85,7 +85,6 @@ for iter = 1:max_iters
     end
 end
 
-%% Compute and Display Costs
 total_cost = zeros(num_agents,1);
 for i = 1:num_agents
     grid_cost = c_grid * sum(agents(i).P_grid);
